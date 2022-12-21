@@ -17,6 +17,7 @@ a {
 
 * {
   box-sizing: border-box;
+  font-family: Proxima Nova, system-ui, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -24,3 +25,5 @@ a {
     color-scheme: dark;
   }
 }
+
+/* #03071e */
