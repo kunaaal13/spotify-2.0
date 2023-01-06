@@ -1,7 +1,8 @@
+import { useSession } from 'next-auth/react'
 import Head from 'next/head'
-import { signOut, useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import { Router, useRouter } from 'next/router'
+import Sidebar from '../components/Sidebar/Sidebar'
 
 export default function Home() {
   const router = useRouter()
@@ -26,15 +27,21 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <div className='text-xl flex items-center justify-center h-screen'>
-        <button
+      <div className='flex h-screen flex-col overflow-hidden bg-black '>
+        {/* <button
           className='bg-black text-white w-2/3 lg:w-1/3 py-2 text-xl font-semibold rounded-full tracking-wide text-center cursor-pointer'
           onClick={() => {
             signOut()
           }}
         >
           Sign Out
-        </button>
+        </button> */}
+
+        <main className='flex flex-[0.85] overflow-hidden'>
+          <Sidebar />
+        </main>
+
+        {/* Music player */}
       </div>
     </>
   )
