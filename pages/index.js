@@ -35,7 +35,7 @@ export default function Home() {
       </Head>
 
       <div className='flex h-screen flex-col overflow-hidden bg-black '>
-        <main className='flex flex-[0.85] overflow-hidden'>
+        <main className='flex flex-[0.87] overflow-hidden'>
           <Sidebar />
         </main>
 
