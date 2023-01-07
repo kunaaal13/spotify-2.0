@@ -1,3 +1,4 @@
+import { signOut } from 'next-auth/react'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import useSpotify from '../../hooks/useSpotify'
@@ -23,7 +24,15 @@ function Sidebar() {
     <div className='flex w-64 flex-col overflow-hidden border-r border-gray-200 p-6'>
       {/* Logo */}
       <div className='px-2'>
-        <Image src='/images/logo.png' alt='logo' height={40} width={131} />
+        <Image
+          src='/images/logo.png'
+          alt='logo'
+          height={40}
+          width={131}
+          onClick={() => {
+            signOut()
+          }}
+        />
       </div>
 
       {/* Sidebar items */}

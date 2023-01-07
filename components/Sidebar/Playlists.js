@@ -6,7 +6,7 @@ function Playlists({ playlists }) {
       {playlists.map((item) => (
         <p
           key={item.id}
-          className='mb-1 cursor-pointer text-sm line-clamp-1 hover:text-white'
+          className='mb-3 cursor-pointer text-sm line-clamp-1 hover:text-white'
         >
           {item.name}
         </p>
