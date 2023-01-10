@@ -7,7 +7,7 @@ import SidebarItem from './SidebarItem'
 
 function Sidebar() {
   return (
-    <div className='flex w-64 flex-col overflow-hidden p-6 pb-2'>
+    <div className='hidden w-64 flex-col overflow-hidden p-6 pb-2 sm:max-w-[12rem] md:inline-flex lg:max-w-[15rem]'>
       {/* Logo */}
       <div className='px-2'>
         <Image src='/images/logo.png' alt='logo' height={40} width={131} />

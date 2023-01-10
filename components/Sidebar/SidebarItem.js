@@ -33,11 +33,11 @@ function SidebarItem({ title, Icon }) {
             className='my-1'
           />
         ) : (
-          <Icon className='h-6 w-6' />
+          <Icon className='h-4 w-4 lg:h-6 lg:w-6' />
         )
       }
 
-      <p className='ml-4 text-sm font-semibold'>{title}</p>
+      <p className='ml-4 text-xs font-semibold lg:text-sm'>{title}</p>
     </div>
   )
 }

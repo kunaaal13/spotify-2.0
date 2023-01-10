@@ -8,10 +8,9 @@ import Search from './Search/Search'
 
 function Center() {
   // hook for the selected options
-  const { selectedOption, setSelectedOption, selectedPlaylist } =
-    useSelectedOptions()
+  const { selectedOption, selectedPlaylist } = useSelectedOptions()
   return (
-    <div className='flex-grow overflow-hidden bg-[#121212] p-6'>
+    <div className='flex-grow overflow-hidden bg-[#121212]'>
       {/* Header */}
       <Header />
 
@@ -23,7 +22,7 @@ function Center() {
           <YourLibrary />
         ) : selectedOption === 'Search' ? (
           <Search />
-        ) : selectedOption === null ? (
+        ) : selectedOption === 'Playlist' ? (
           <Playlist playlistId={selectedPlaylist} />
         ) : selectedOption === 'Liked Songs' ? (
           <Playlist playlistId={'Liked Songs'} />

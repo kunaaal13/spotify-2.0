@@ -24,15 +24,15 @@ function Playlists() {
       {playlists.map((item) => (
         <p
           key={item.id}
-          className={`mb-3 cursor-pointer text-sm line-clamp-1 hover:text-white ${
+          className={`mb-3 cursor-pointer text-xs line-clamp-1 hover:text-white lg:text-sm ${
             item.id === selectedPlaylist ? 'text-white' : ''
           }`}
           onClick={() => {
             // set current playlist to selected playlist
             setSelectedPlaylist(item.id)
 
-            // set selected option to null
-            setSelectedOption(null)
+            // set selected option to playlist
+            setSelectedOption('Playlist')
           }}
         >
           {item.name}
