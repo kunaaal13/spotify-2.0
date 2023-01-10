@@ -2,6 +2,7 @@ import { useSession } from 'next-auth/react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import Center from '../components/Center/Center'
 import Sidebar from '../components/Sidebar/Sidebar'
 import useSpotify from '../hooks/useSpotify'
 
@@ -34,9 +35,10 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <div className='flex h-screen flex-col overflow-hidden bg-black '>
-        <main className='flex flex-[0.87] overflow-hidden'>
+      <div className='flex h-screen flex-col overflow-hidden bg-black text-gray-400'>
+        <main className='flex flex-[0.9] overflow-hidden'>
           <Sidebar />
+          <Center />
         </main>
 
         {/* Music player */}

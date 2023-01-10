@@ -7,18 +7,10 @@ import SidebarItem from './SidebarItem'
 
 function Sidebar() {
   return (
-    <div className='flex w-64 flex-col overflow-hidden border-r border-gray-600 p-6 pb-2'>
+    <div className='flex w-64 flex-col overflow-hidden p-6 pb-2'>
       {/* Logo */}
       <div className='px-2'>
-        <Image
-          src='/images/logo.png'
-          alt='logo'
-          height={40}
-          width={131}
-          onClick={() => {
-            signOut()
-          }}
-        />
+        <Image src='/images/logo.png' alt='logo' height={40} width={131} />
       </div>
 
       {/* Sidebar items */}
