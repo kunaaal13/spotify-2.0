@@ -35,7 +35,7 @@ function Playlist({ playlistId }) {
             title='Liked Songs'
             owner='Me'
             imgSrc='/images/liked.png'
-            totalSongs={playlist?.items.length}
+            totalSongs={playlist?.items?.length}
           />
         ) : (
           <Header
