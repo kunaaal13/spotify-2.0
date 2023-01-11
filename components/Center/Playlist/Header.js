@@ -5,7 +5,6 @@ import newShade from '../../../lib/darkerColor'
 function Header({ title, owner, imgSrc, totalSongs }) {
   // hook to get dominant color from image
   const color = useDominantColor(imgSrc)
-  console.log(color)
 
   // if color is not found, return null
   if (color.length === 0) return null

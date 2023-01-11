@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import useSpotify from '../../../hooks/useSpotify'
 import Header from './Header'
+import Songs from './Songs'
 
 function Playlist({ playlistId }) {
   // initialize spotify hook
@@ -26,10 +27,13 @@ function Playlist({ playlistId }) {
 
   if (!playlist) return null
 
+  console.log(playlistId)
+  console.log(playlist)
+
   return (
-    <div>
+    <div className='h-full overflow-hidden'>
       {
-        // Render different headers when playlistid is liked or something else
+        // Render different headers when playlistid is liked songs or not
         playlistId === 'Liked Songs' ? (
           <Header
             title='Liked Songs'
@@ -44,6 +48,16 @@ function Playlist({ playlistId }) {
             imgSrc={playlist?.images?.[0]?.url}
             totalSongs={playlist?.tracks?.items?.length}
           />
+        )
+      }
+
+      {/* Songs */}
+      {
+        // Send different props when playlistid is liked or not
+        playlistId === 'Liked Songs' ? (
+          <Songs playlist={playlist} playlistId={playlistId} />
+        ) : (
+          <Songs playlist={playlist.tracks} playlistId={playlistId} />
         )
       }
     </div>
