@@ -13,13 +13,16 @@ function Header({ title, owner, imgSrc, totalSongs }) {
   // negative value for darker shade
   const darkerColor = newShade(color, -50)
 
+  // if no image is found, return null
+  if (!imgSrc) return null
+
   return (
     <section
       style={{
         // set background color to dominant color gradient
         background: `linear-gradient(180deg, ${darkerColor} 0%, rgba(0, 0, 0, 0) 130%)`,
       }}
-      className={`flex h-80 w-full items-end space-x-7 p-8 text-white`}
+      className={`flex h-72 w-full items-end space-x-7 p-8 text-white`}
     >
       <img
         src={imgSrc}

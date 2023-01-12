@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import useSpotify from '../../hooks/useSpotify'
 import { BiCaretDown, BiUser } from 'react-icons/bi'
 import { signOut } from 'next-auth/react'
+import { useAccount } from '../../store/useAccountStore'
 
 function Header() {
   const spotifyApi = useSpotify()
@@ -10,6 +11,9 @@ function Header() {
   // state to store the user's name and image
   const [name, setName] = useState('')
   const [image, setImage] = useState('')
+
+  // user state from zustand
+  const { setUser } = useAccount()
 
   useEffect(() => {
     if (spotifyApi.getAccessToken()) {
@@ -21,6 +25,9 @@ function Header() {
         if (res.body.images.length > 0) {
           setImage(res.body.images[0].url)
         }
+
+        // set the user in zustand
+        setUser(res.body)
       })
     }
   }, [spotifyApi])

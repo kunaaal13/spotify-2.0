@@ -25,9 +25,9 @@ function Playlist({ playlistId }) {
     }
   }, [spotifyApi, playlistId])
 
+  // Return a loading screen if playlist is null
   if (!playlist) return null
 
-  console.log(playlistId)
   console.log(playlist)
 
   return (

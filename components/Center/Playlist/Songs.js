@@ -3,23 +3,9 @@ import Song from './Song'
 
 function Songs({ playlist, playlistId }) {
   if (!playlist) return null
+
   return (
-    <div className='mt-1 h-full overflow-y-scroll px-8 py-6 pb-96'>
-      <table className='w-full text-left text-sm'>
-        <thead class='bg-gray-100 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
-          <tr>
-            <th scope='col' class='rounded-l-lg px-6 py-3'>
-              Product name
-            </th>
-            <th scope='col' class='px-6 py-3'>
-              Qty
-            </th>
-            <th scope='col' class='rounded-r-lg px-6 py-3'>
-              Price
-            </th>
-          </tr>
-        </thead>
-      </table>
+    <div className='mt-1 h-full overflow-y-scroll px-4 py-6 pb-96 scrollbar-hide'>
       {playlist?.items?.map((song, i) => (
         <Song
           key={song.track.uri}
@@ -30,7 +16,7 @@ function Songs({ playlist, playlistId }) {
           album={song.track.album.name}
           imgSrc={song.track.album.images[0].url}
           duration={song.track.duration_ms}
-          addedAt={song.track.added_at}
+          id={song.track.id}
         />
       ))}
     </div>

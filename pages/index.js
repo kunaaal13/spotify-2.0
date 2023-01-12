@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import Center from '../components/Center/Center'
+import Player from '../components/Player/Player'
 import Sidebar from '../components/Sidebar/Sidebar'
 import useSpotify from '../hooks/useSpotify'
 
@@ -42,6 +43,7 @@ export default function Home() {
         </main>
 
         {/* Music player */}
+        <Player />
       </div>
     </>
   )
