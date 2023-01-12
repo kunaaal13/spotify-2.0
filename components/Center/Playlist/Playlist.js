@@ -28,8 +28,6 @@ function Playlist({ playlistId }) {
   // Return a loading screen if playlist is null
   if (!playlist) return null
 
-  console.log(playlist)
-
   return (
     <div className='h-full overflow-hidden'>
       {
