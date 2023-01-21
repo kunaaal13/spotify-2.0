@@ -4,6 +4,7 @@ import { BsPlayFill } from 'react-icons/bs'
 import { usePlayback } from '../../../store/usePlaybackStore'
 import useSpotify from '../../../hooks/useSpotify'
 import { useAccount } from '../../../store/useAccountStore'
+import { toast } from 'react-hot-toast'
 
 function Song({ name, uri, artists, album, imgSrc, duration, id, i }) {
   // state for hover effect
@@ -13,8 +14,7 @@ function Song({ name, uri, artists, album, imgSrc, duration, id, i }) {
   const spotifyApi = useSpotify()
 
   // get playback states from zustand
-  const { currentSong, playbackState, setCurrentSong, setPlaybackState } =
-    usePlayback()
+  const { setDevice, isPlaying, setIsPlaying, setCurrentSong } = usePlayback()
 
   // get user state from zustand
   const { user } = useAccount()
@@ -23,31 +23,43 @@ function Song({ name, uri, artists, album, imgSrc, duration, id, i }) {
   const handleClick = () => {
     // if the user is not premium, show an alert and return
     if (!user.product === 'premium') {
-      alert('You need to be a premium user to play music')
+      toast.error('You need to be a premium user to play music')
       return
     }
 
-    // if the song is already playing, check if it's the same song
-    if (playbackState === 'playing') {
-      // if it's the same song, pause it
-      if (currentSong === id) {
-        spotifyApi.pause()
-        setPlaybackState('paused')
+    // Get the current playback state
+    spotifyApi.getMyCurrentPlaybackState().then((res) => {
+      // if there is no device, return alert
+      if (res.body === null) {
+        toast.error('No device found, please open spotify on your device')
+        setDevice(null)
         return
       } else {
-        // if it's a different song, play it
-        spotifyApi.play({ uris: [uri] })
-        setCurrentSong(id)
-        setPlaybackState('playing')
-        return
+        setDevice(res.body.device.id)
+        setIsPlaying(res.body.is_playing)
+
+        // if song is playing, pause it
+        if (res.body.is_playing) {
+          // if it's the same song, pause it
+          if (res.body.item.id === id) {
+            spotifyApi.pause()
+            setIsPlaying(false)
+            return
+          } else {
+            // if it's a different song, play it
+            spotifyApi.play({ uris: [uri] })
+            setIsPlaying(true)
+            setCurrentSong(id)
+            return
+          }
+        } else {
+          // not playing, play it
+          spotifyApi.play({ uris: [uri] })
+          setIsPlaying(true)
+          setCurrentSong(id)
+        }
       }
-    } else {
-      // if the song is paused, play it
-      spotifyApi.play({ uris: [uri] })
-      setCurrentSong(id)
-      setPlaybackState('playing')
-      return
-    }
+    })
   }
 
   return (

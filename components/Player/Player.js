@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import useSpotify from '../../hooks/useSpotify'
 import { usePlayback } from '../../store/usePlaybackStore'
+import { useAccount } from '../../store/useAccountStore'
 import {
   BiArrowToLeft,
   BiArrowToRight,
@@ -9,54 +10,89 @@ import {
   BiVolumeFull,
   BiVolume,
 } from 'react-icons/bi'
+import { toast } from 'react-hot-toast'
 
 function Player() {
   const spotifyApi = useSpotify()
   const [track, setTrack] = useState(null)
-  const [volume, setVolume] = useState(50)
-  const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
+  const [volume, setVolume] = useState(100)
+  const [width, setWidth] = useState(0)
 
   // get playback state from zustand
-  const { playbackState, setPlaybackState, currentSong } = usePlayback()
+  const {
+    currentSong,
+    setDevice,
+    setCurrentSong,
+    isPlaying,
+    setIsPlaying,
+    device,
+  } = usePlayback()
 
-  // initilaise the player
+  // get user
+  const { user } = useAccount()
+
+  // handle the player
   useEffect(() => {
     // if spotify api is not authenticated, return
     if (spotifyApi.getAccessToken()) {
       // Get the current playback state
       spotifyApi.getMyCurrentPlaybackState().then((res) => {
-        // if there is no device, return alert
+        // if there is no playback state, return
 
-        console.log(res.body)
         if (res.body === null) {
-          // get the user's most recently played track
-          spotifyApi.getMyRecentlyPlayedTracks().then((res) => {
-            // set the current song
-            setTrack(res.body.items[res.body.limit - 1].track)
-          })
+          // there is no device
+          setDevice(null)
+          setIsPlaying(false)
 
-          // alert user that there is no device and song can be played only if there is a device
-          alert('No device found, please open spotify on your device')
+          toast.error('No device found, please open spotify on your device')
+
+          // check if there is a current song
+          if (currentSong === null) {
+            // get the user's most recently played track
+            spotifyApi.getMyRecentlyPlayedTracks().then((res) => {
+              // set the current song
+              setCurrentSong(res.body.items[res.body.limit - 1].track.id)
+              setTrack(res.body.items[res.body.limit - 1].track)
+            })
+          } else {
+            // there is a current song
+          }
         } else {
-          // there is a device, set the current song
-          setTrack(res.body.item)
-          setVolume(res.body.device.volume_percent)
-          // setIsPlaying(res.body.is_playing)
+          // there is a playback state
+          if (device !== res.body.device?.id) {
+            // update the device
+            setDevice(res.body.device.id)
+          }
+
+          // set the track
+          if (currentSong !== res.body.item?.id) {
+            setTrack(res.body.item)
+            setCurrentSong(res.body.item)
+          }
+
+          if (res.body.is_playing !== isPlaying) {
+            // update the is playing
+            setIsPlaying(res.body.is_playing)
+          }
+
+          // calculate width of progress bar
           setProgress(res.body.progress_ms)
         }
       })
     }
-  }, [spotifyApi, playbackState, currentSong])
+  }, [
+    currentSong,
+    device,
+    isPlaying,
+    spotifyApi,
+    setDevice,
+    setCurrentSong,
+    setIsPlaying,
+  ])
 
   // if track is not null, return the player
   if (!track) return null
-
-  // Update the progress bar every second
-  setInterval(() => {
-    // if the song is playing, update the progress bar
-    if (isPlaying) setProgress(progress + 1000)
-  }, 1000)
 
   return (
     <div className='z-10 flex w-full flex-[0.1] items-center justify-between bg-[#181818] px-2 text-sm text-white md:px-8 md:text-base'>
@@ -71,7 +107,7 @@ function Player() {
         <div>
           <h3 className='w-full line-clamp-1'>{track?.name}</h3>
           <p className='text-xs text-gray-400 hover:text-white'>
-            {track.artists[0].name}
+            {track?.artists[0].name}
           </p>
         </div>
       </div>
@@ -81,29 +117,63 @@ function Player() {
         {/* upper controls */}
         <div className='flex items-center space-x-4'>
           {/* Previous track */}
-          <BiArrowToLeft className='h-6 w-6' />
+          <BiArrowToLeft
+            className='h-6 w-6 cursor-pointer'
+            onClick={() => {
+              // check device and premium
+              if (device === null || user.product !== 'premium') {
+                toast.error('Error: No device found or not premium')
+              }
+
+              spotifyApi.skipToPrevious()
+            }}
+          />
 
           {/* Play/Pause */}
           {isPlaying ? (
-            <BiPauseCircle className='h-10 w-10 md:h-8 md:w-8' />
+            <BiPauseCircle
+              className='h-10 w-10 cursor-pointer md:h-8 md:w-8'
+              onClick={() => {
+                // check device and premium
+                if (device === null || user.product !== 'premium') {
+                  toast.error('Error: No device found or not premium')
+                }
+                spotifyApi.pause()
+                setIsPlaying(false)
+              }}
+            />
           ) : (
-            <BiPlayCircle className='h-10 w-10 md:h-8 md:w-8' />
+            <BiPlayCircle
+              className='h-10 w-10 cursor-pointer md:h-8 md:w-8'
+              onClick={() => {
+                spotifyApi.play()
+                setIsPlaying(true)
+              }}
+            />
           )}
 
           {/* Next track */}
-          <BiArrowToRight className='h-6 w-6' />
+          <BiArrowToRight
+            className='h-6 w-6 cursor-pointer'
+            onClick={() => {
+              // check device and premium
+              if (device === null || user.product !== 'premium') {
+                toast.error('Error: No device found or not premium')
+              }
+
+              spotifyApi.skipToNext()
+            }}
+          />
         </div>
 
         {/* Seek bar */}
         <div className='mt-1 hidden w-full md:inline'>
-          <p className='text-xs text-gray-400'></p>
-
-          <div className='h-2 w-full rounded-full bg-gray-400'>
+          <div className='h-2 w-full overflow-hidden rounded-full bg-gray-400'>
             <div
               className='h-2 rounded-full bg-white'
               style={{
                 // width of the progress bar is equal to the current progress of the song
-                width: `${(progress / track.duration_ms) * 100}%`,
+                width: `${(progress / track?.duration_ms) * 100}%`,
               }}
             ></div>
           </div>

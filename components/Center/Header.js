@@ -30,7 +30,7 @@ function Header() {
         setUser(res.body)
       })
     }
-  }, [spotifyApi])
+  }, [spotifyApi, setUser])
   return (
     <header className='absolute top-5 right-8 z-50'>
       <div

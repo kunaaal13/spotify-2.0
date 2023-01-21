@@ -1,13 +1,21 @@
 import create from 'zustand'
 
 export const usePlayback = create((set) => ({
+  // current song
   currentSong: null,
 
-  // Set current song
+  // set current song
   setCurrentSong: (song) => set({ currentSong: song }),
 
-  playbackState: 'paused',
+  // is playing
+  isPlaying: false,
 
-  // Set playback state
-  setPlaybackState: (state) => set({ playbackState: state }),
+  // set is playing
+  setIsPlaying: (isPlaying) => set({ isPlaying }),
+
+  // device
+  device: null,
+
+  // set device
+  setDevice: (device) => set({ device }),
 }))
