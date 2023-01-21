@@ -6,4 +6,10 @@ export const useAccount = create((set) => ({
 
   // setUser is a function that sets the user
   setUser: (user) => set(() => ({ user })),
+
+  // country code
+  country: 'IN',
+
+  // setCountryCode is a function that sets the country code
+  setCountry: (countryCode) => set(() => ({ countryCode })),
 }))

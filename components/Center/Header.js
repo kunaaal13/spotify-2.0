@@ -13,13 +13,16 @@ function Header() {
   const [image, setImage] = useState('')
 
   // user state from zustand
-  const { setUser } = useAccount()
+  const { setUser, setCountry } = useAccount()
 
   useEffect(() => {
     if (spotifyApi.getAccessToken()) {
       // get the user's name and image
       spotifyApi.getMe().then((res) => {
         setName(res.body.display_name)
+
+        // set the country code
+        setCountry(res.body.country)
 
         // if the user has an image, set it
         if (res.body.images.length > 0) {
