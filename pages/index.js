@@ -27,7 +27,7 @@ export default function Home() {
   }, [router, session, spotifyApi, status])
 
   // if no access token, set it
-  if (!spotifyApi.getAccessToken()) {
+  if (session && !spotifyApi.getAccessToken()) {
     spotifyApi.setAccessToken(session.user.accessToken)
   }
 
