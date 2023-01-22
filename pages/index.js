@@ -19,15 +19,6 @@ export default function Home() {
     }
   }, [router, session, spotifyApi, status])
 
-  // If spotify api is not authenticated, return null
-  if (!spotifyApi.getAccessToken()) {
-    return (
-      <h3>
-        <span className='text-2xl'>Loading...</span>
-      </h3>
-    )
-  }
-
   return (
     <>
       <Head>

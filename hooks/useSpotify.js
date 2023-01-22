@@ -21,6 +21,9 @@ function useSpotify() {
 
       // set access token to spotify api
       spotifyApi.setAccessToken(session.user.accessToken)
+    } else {
+      // logout if no session
+      router.push('/login')
     }
   }, [router, session, status])
 
