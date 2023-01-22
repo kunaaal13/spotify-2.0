@@ -15,6 +15,9 @@ function SidebarItem({ title, Icon }) {
         title === 'Create Playlist' ? 'mt-3 mb-[1px]' : ''
       }`}
       onClick={() => {
+        // if title is Search, return
+        if (title === 'Search' || title === 'Create Playlist') return
+
         // set selected option to title
         setSelectedOption(title)
 

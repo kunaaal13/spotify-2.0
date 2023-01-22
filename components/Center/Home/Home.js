@@ -32,7 +32,7 @@ function Home() {
         if (artistId) {
           spotifyApi.getArtistTopTracks(artistId, country).then((res) => {
             // get the first three tracks
-            setTopArtistTracks(res.body.tracks.slice(0, 4))
+            setTopArtistTracks(res.body.tracks.slice(0, 5))
           })
         }
       })
@@ -60,7 +60,7 @@ function Home() {
 
         {/* User's top artist's top tracks */}
         <h2 className='mt-16 text-2xl font-bold text-white'>{`Best of ${topArtist}`}</h2>
-        <div className='mt-6 grid w-full grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+        <div className='mt-6 grid w-full grid-cols-2 lg:grid-cols-3 xl:grid-cols-5'>
           {
             // map through the artist top tracks and display them
             topArtistTracks.map((track) => (

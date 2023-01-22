@@ -119,14 +119,14 @@ function Player() {
           {/* Previous track */}
           <BiArrowToLeft
             className='h-6 w-6 cursor-pointer'
-            onClick={() => {
-              // check device and premium
-              if (device === null || user.product !== 'premium') {
-                toast.error('Error: No device found or not premium')
-              }
+            // onClick={() => {
+            //   // check device and premium
+            //   if (device === null || user.product !== 'premium') {
+            //     toast.error('Error: No device found or not premium')
+            //   }
 
-              spotifyApi.skipToPrevious()
-            }}
+            //   spotifyApi.skipToPrevious()
+            // }}
           />
 
           {/* Play/Pause */}
