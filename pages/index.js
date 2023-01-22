@@ -17,6 +17,8 @@ export default function Home() {
     if (session === null) {
       router.push('/login')
     }
+
+    // set access token to spotify api
   }, [router, session, spotifyApi, status])
 
   // if no access token,
