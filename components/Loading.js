@@ -11,9 +11,7 @@ function Loading() {
         <div class='ball five'></div>
       </div>
 
-      <h3 className='text-xl text-white'>
-        Fetching your account data, please wait a moment.
-      </h3>
+      <h3 className='mt-3 text-xl text-white'>Connecting to spotify</h3>
     </div>
   )
 }
