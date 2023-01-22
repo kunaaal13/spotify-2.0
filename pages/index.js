@@ -14,15 +14,17 @@ export default function Home() {
 
   useEffect(() => {
     // logout if status is unauthenticated
-    if (status === 'unauthenticated') {
+    if (session === null || status === 'unauthenticated') {
       router.push('/login')
     }
-  }, [router, status, spotifyApi])
+  }, [router, session, spotifyApi, status])
 
   // If spotify api is not authenticated, return null
   if (!spotifyApi.getAccessToken()) {
     return null
   }
+
+  if (status === 'loading') return <div>Loading...</div>
 
   return (
     <>
