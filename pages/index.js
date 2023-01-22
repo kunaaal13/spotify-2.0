@@ -19,6 +19,11 @@ export default function Home() {
     }
   }, [router, session, spotifyApi, status])
 
+  // if no access token,
+  if (!spotifyApi.getAccessToken()) {
+    return null
+  }
+
   return (
     <>
       <Head>

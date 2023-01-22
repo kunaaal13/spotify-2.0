@@ -15,7 +15,7 @@ function useSpotify() {
   useEffect(() => {
     if (session) {
       // logout if status is unauthenticated
-      if (session.error) {
+      if (session.error === 'RefreshAccessTokenError') {
         router.push('/login')
       }
 
