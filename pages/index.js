@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import Center from '../components/Center/Center'
+import Loading from '../components/Loading'
 import Player from '../components/Player/Player'
 import Sidebar from '../components/Sidebar/Sidebar'
 import useSpotify from '../hooks/useSpotify'
@@ -23,7 +24,11 @@ export default function Home() {
 
   // if no access token,
   if (!spotifyApi.getAccessToken()) {
-    return null
+    return (
+      <>
+        <Loading />
+      </>
+    )
   }
 
   return (

@@ -20,6 +20,57 @@ a {
   font-family: Proxima Nova, system-ui, sans-serif;
 }
 
+.box {
+  display: flex;
+  align-items: center;
+}
+
+.ball {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background-color: turquoise;
+  margin-right: 10px;
+  animation: loading-animation 1s ease-in-out infinite;
+}
+
+.ball:hover {
+  animation-play-state: paused;
+}
+
+.one {
+  animation-delay: 0.1s;
+}
+
+.two {
+  animation-delay: 0.2s;
+}
+
+.three {
+  animation-delay: 0.3s;
+}
+
+.four {
+  animation-delay: 0.4s;
+}
+
+.five {
+  animation-delay: 0.5s;
+}
+
+@keyframes loading-animation {
+  from,
+  to {
+    transform: translateY(0) scale(1);
+    background-color: blueviolet;
+  }
+
+  50% {
+    transform: translateY(50px) scale(0.4);
+    background-color: turquoise;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
