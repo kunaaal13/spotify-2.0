@@ -24,15 +24,15 @@ NextJs, Spotify web node API, Tailwind CSS, next auth, react icons(box icons mos
 
 ### Home Component
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot](https://github.com/kunaaal13/spotify-2.0/blob/main/public/Home.png?raw=true)
 
 ### Library Component
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot](https://github.com/kunaaal13/spotify-2.0/blob/main/public/Library.png?raw=true)
 
 ### Playlist Component
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot](https://github.com/kunaaal13/spotify-2.0/blob/main/public/Playlist.png?raw=true)
 
 
 ## Environment Variables
