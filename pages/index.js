@@ -14,7 +14,7 @@ export default function Home() {
 
   useEffect(() => {
     // logout if status is unauthenticated
-    if (session === null || status === 'unauthenticated') {
+    if (session === null) {
       router.push('/login')
     }
   }, [router, session, spotifyApi, status])
@@ -23,8 +23,6 @@ export default function Home() {
   if (!spotifyApi.getAccessToken()) {
     return null
   }
-
-  if (status === 'loading') return <div>Loading...</div>
 
   return (
     <>
