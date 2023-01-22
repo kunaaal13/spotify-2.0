@@ -16,6 +16,8 @@ export async function middleware(req) {
 
   // Redirect to login page if token does not exist and calling protected routes
   if (!token && pathname !== '/login') {
-    return NextResponse.redirect('pages/login');
+    const url = req.nextUrl.clone();
+    url.pathname = '/login';
+    return NextResponse.redirect(url);
   }
 }
