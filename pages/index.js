@@ -19,10 +19,18 @@ export default function Home() {
       router.push('/login')
     }
 
-    // set access token to spotify api
+    // if access token is not set, set it
+    if (session && !spotifyApi.getAccessToken()) {
+      console.log('setting access token')
+      spotifyApi.setAccessToken(session.user.accessToken)
+    }
   }, [router, session, spotifyApi, status])
 
-  // if no access token,
+  // if no access token, set it
+  if (!spotifyApi.getAccessToken()) {
+    spotifyApi.setAccessToken(session.user.accessToken)
+  }
+
   if (!spotifyApi.getAccessToken()) {
     return (
       <>
