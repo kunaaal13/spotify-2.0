@@ -20,54 +20,38 @@ a {
   font-family: Proxima Nova, system-ui, sans-serif;
 }
 
-.box {
-  display: flex;
-  align-items: center;
+.loader {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  background: #fff;
+  border-radius: 50%;
+  overflow: hidden;
 }
-
-.ball {
-  width: 20px;
-  height: 20px;
-  border-radius: 100%;
-  background-color: turquoise;
-  margin-right: 10px;
-  animation: loading-animation 1s ease-in-out infinite;
+.loader:after {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  margin: auto;
+  background: #222b32;
+  border-radius: 50%;
 }
-
-.ball:hover {
-  animation-play-state: paused;
+.loader:before {
+  content: '';
+  position: absolute;
+  inset: 0px;
+  margin: auto;
+  background: #de3500;
+  animation: crlMugLoader 2s linear infinite alternate;
 }
-
-.one {
-  animation-delay: 0.1s;
-}
-
-.two {
-  animation-delay: 0.2s;
-}
-
-.three {
-  animation-delay: 0.3s;
-}
-
-.four {
-  animation-delay: 0.4s;
-}
-
-.five {
-  animation-delay: 0.5s;
-}
-
-@keyframes loading-animation {
-  from,
-  to {
-    transform: translateY(0) scale(1);
-    background-color: blueviolet;
+@keyframes crlMugLoader {
+  0%,
+  10% {
+    transform: translateY(64px);
   }
-
-  50% {
-    transform: translateY(50px) scale(0.4);
-    background-color: turquoise;
+  90%,
+  100% {
+    transform: translateY(0px);
   }
 }
 
